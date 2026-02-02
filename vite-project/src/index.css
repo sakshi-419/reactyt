@@ -1,0 +1,145 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #000;
+  font-family: Arial, sans-serif;
+}
+
+/* PAGE WRAPPER */
+.parent {
+  width: 100%;
+ 
+  padding: 40px;
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  
+}
+
+
+/* HORIZONTAL SCROLL ROW */
+.card-container {
+  display: flex;
+  gap: 24px;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  scroll-behavior: smooth;
+  padding-bottom: 10px;
+}
+
+/* HIDE SCROLLBAR */
+.card-container::-webkit-scrollbar {
+  display: none;
+}
+
+.card {
+ width: 400px;  /* ⬅️ narrower card (KEY CHANGE) */
+  height: 360px;        /* slightly taller like screenshot */
+
+  background: #ffffff;
+  border-radius: 26px;
+  padding: 22px;
+
+  flex-shrink: 0;
+}
+
+
+/* TOP */
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.top img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+  padding: 6px;
+}
+
+.top button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 6px 12px;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  background: #fff;
+  cursor: pointer;
+}
+
+/* CENTER */
+.center {
+  margin-top: 30px;
+}
+
+.center h3 {
+  font-size: 14px;
+  color: #555;
+}
+
+.center h3 span {
+  font-size: 12px;
+  color: #999;
+  margin-left: 6px;
+}
+
+.center h2 {
+  font-size: 22px;
+  margin: 10px 0 16px;
+}
+
+.center div {
+  display: flex;
+  gap: 10px;
+}
+
+.center div button {
+  padding: 6px 12px;
+  border-radius: 12px;
+  background: #f1f1f1;
+  border: none;
+  font-size: 13px;
+}
+
+/* BOTTOM */
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 35px;
+}
+
+.bottom h3 {
+  font-size: 20px;
+}
+
+.bottom p {
+  font-size: 13px;
+  color: #666;
+}
+
+.bottom button {
+  background: #000;
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+}
+
+/* OPTIONAL HOVER EFFECT */
+.card:hover {
+  transform: translateY(-4px);
+  transition: 0.3s ease;
+}

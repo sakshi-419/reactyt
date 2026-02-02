@@ -1,0 +1,50 @@
+
+
+.container {
+  display: flex;
+  justify-content: center;   /* center horizontally */
+  gap: 20px;                 /* space between cards */
+  flex-wrap: wrap;           /* mobile me neeche aa jaye */
+  margin-top: 40px;
+}
+
+.parent{
+  display: flex;
+  justify-content: center;   /* center horizontally */
+  gap: 20px;                 /* space between cards */
+  flex-wrap: wrap;           /* mobile me neeche aa jaye */
+  margin-top: 40px;
+
+}
+.card{
+  background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #a18cd1, #fbc2eb);
+  background-size: 400% 400%;
+  animation: gradientMove 8s ease infinite;
+  border-radius: 12px;
+  padding: 20px;
+  color: #333;
+  border-radius: 20px;
+  border: 2px solid rgb(0, 0, 0);
+  width: 200px;
+  margin: 20px;
+  padding: 30px;
+  text-align: center;
+  flex-wrap: wrap;
+
+
+
+}
+
+.card img{
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid black;
+  
+}
+button{
+  background-color: rgb(0, 255, 234);
+  padding: 10px;
+  
+}
