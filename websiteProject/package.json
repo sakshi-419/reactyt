@@ -1,5 +1,5 @@
 {
-  "name": "first-react-app",
+  "name": "new",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -11,9 +11,9 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.18",
-    "lucide-react": "^0.563.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "remixicon": "^4.9.1",
     "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
