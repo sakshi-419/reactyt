@@ -1,0 +1,19 @@
+
+*{
+ 
+  background-color: black;
+
+}
+input{
+   width: 400px;
+   height: 60px;
+   margin: 50px 80px;
+   background-color: rgb(184, 181, 181);
+   font-size: x-large;
+}
+
+form button{
+  color: azure;
+  background-color: burlywood;
+  padding: 10px 20px;
+}
