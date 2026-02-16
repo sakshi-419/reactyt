@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -8,13 +9,22 @@ function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
 
+  const [auth, setAuth] = useLocalStorage("auth", false);
+
   const navigate = useNavigate();
+
+  // ✅ If already logged in → go to board
+  useEffect(() => {
+    if (auth) {
+      navigate("/board");
+    }
+  }, [auth, navigate]);
 
   const handleLogin = (e) => {
     e.preventDefault();
 
     if (email === "intern@demo.com" && password === "intern123") {
-      localStorage.setItem("auth", "true");
+      setAuth(true);
       navigate("/board");
     } else {
       setError("Invalid credentials");
@@ -51,7 +61,6 @@ function Login() {
             required
           />
 
-          {/* EYE ICON */}
           {password && (
             <span
               className="toggle-password"
@@ -62,8 +71,10 @@ function Login() {
           )}
         </div>
 
+        {/* BUTTON */}
         <button type="submit">Login</button>
 
+        {/* ERROR MESSAGE */}
         {error && <p className="error">{error}</p>}
       </form>
     </div>
