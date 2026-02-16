@@ -1,35 +1,20 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
-  const navigate = useNavigate();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [remember, setRemember] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
 
-  // 🔐 If already logged in → go to board
-  useEffect(() => {
-    const isAuth = localStorage.getItem("isAuth");
-    if (isAuth) {
-      navigate("/board");
-    }
-  }, [navigate]);
+  const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
 
     if (email === "intern@demo.com" && password === "intern123") {
-
-      if (remember) {
-        localStorage.setItem("isAuth", "true");
-      } else {
-        sessionStorage.setItem("isAuth", "true");
-      }
-
+      localStorage.setItem("auth", "true");
       navigate("/board");
-
     } else {
       setError("Invalid credentials");
     }
@@ -37,8 +22,7 @@ function Login() {
 
   return (
     <div className="page-center">
-      <form className="card" onSubmit={handleLogin}>
-
+      <form className="card login-card" onSubmit={handleLogin}>
         <h2>Task Board Login</h2>
 
         <input
@@ -48,30 +32,10 @@ function Login() {
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        <input
-          type="password"
-          placeholder="Enter password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-
-        {/* ✅ REMEMBER ME */}
-        <label className="remember">
+        {/* PASSWORD FIELD */}
+        <div className="password-field">
           <input
-            type="checkbox"
-            checked={remember}
-            onChange={() => setRemember(!remember)}
-          />
-          Remember me
-        </label>
-
-        <button type="submit">Login</button>
-
-        {error && <p className="error">{error}</p>}
-
-      </form>
-    </div>
-  );
-}
-
-export default Login;
+            type={showPassword ? "text" : "password"}
+            placeholder="Enter password"
+            value={password}
+            onChange={(e) => setPassw
