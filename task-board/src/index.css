@@ -293,3 +293,20 @@ body {
 input, select, button {
   font-size: 16px;   /* stops mobile zoom */
 }
+
+/* Fix mobile date input */
+
+input[type="date"] {
+  appearance: auto;
+  -webkit-appearance: auto;
+  background: white;
+  color: black;
+  min-height: 45px;
+}
+
+/* Show calendar icon on mobile */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 1;
+  display: block;
+  cursor: pointer;
+}

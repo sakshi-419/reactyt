@@ -8,6 +8,8 @@ import { v4 as uuid } from "uuid";
 import { useAuth } from "../auth/AuthContext";
 import { useNavigate } from "react-router-dom";
 
+/* ================= INITIAL DATA ================= */
+
 const initialData = {
   todo: [],
   doing: [],
@@ -18,48 +20,66 @@ export default function Board() {
   const { logout } = useAuth();
   const navigate = useNavigate();
 
+  /* ================= STATE ================= */
+
   const [tasks, setTasks] = useState(initialData);
   const [search, setSearch] = useState("");
   const [priorityFilter, setPriorityFilter] = useState("");
   const [log, setLog] = useState([]);
+
+  /* ================= LOAD FROM LOCALSTORAGE ================= */
 
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem("board"));
     if (saved) setTasks(saved);
   }, []);
 
+  /* ================= SAVE TO LOCALSTORAGE ================= */
+
   useEffect(() => {
     localStorage.setItem("board", JSON.stringify(tasks));
   }, [tasks]);
+
+  /* ================= LOGOUT ================= */
 
   const handleLogout = () => {
     logout();
     navigate("/");
   };
 
-  const addLog = msg =>
+  /* ================= ACTIVITY LOG ================= */
+
+  const addLog = msg => {
     setLog(prev => [{ id: uuid(), msg }, ...prev]);
+  };
+
+  /* ================= DRAG & DROP ================= */
 
   const onDragEnd = result => {
     if (!result.destination) return;
 
-    const source = [...tasks[result.source.droppableId]];
-    const [moved] = source.splice(result.source.index, 1);
+    const sourceCol = result.source.droppableId;
+    const destCol = result.destination.droppableId;
 
-    const dest = [...tasks[result.destination.droppableId]];
-    dest.splice(result.destination.index, 0, moved);
+    const sourceItems = [...tasks[sourceCol]];
+    const [movedItem] = sourceItems.splice(result.source.index, 1);
+
+    const destItems = [...tasks[destCol]];
+    destItems.splice(result.destination.index, 0, movedItem);
 
     setTasks({
       ...tasks,
-      [result.source.droppableId]: source,
-      [result.destination.droppableId]: dest,
+      [sourceCol]: sourceItems,
+      [destCol]: destItems,
     });
 
     addLog("Task moved");
   };
 
+  /* ================= SEARCH + FILTER + SORT ================= */
+
   const processTasks = list =>
-    list
+    (list || [])
       .filter(t =>
         t.title.toLowerCase().includes(search.toLowerCase())
       )
@@ -68,12 +88,15 @@ export default function Board() {
       )
       .sort(
         (a, b) =>
-          new Date(a.due || "9999") -
-          new Date(b.due || "9999")
+          new Date(a.due || "9999-12-31") -
+          new Date(b.due || "9999-12-31")
       );
+
+  /* ================= UI ================= */
 
   return (
     <>
+      {/* NAVBAR */}
       <div className="navbar">
         <h2>Task Board</h2>
         <button className="logout-btn" onClick={handleLogout}>
@@ -81,6 +104,7 @@ export default function Board() {
         </button>
       </div>
 
+      {/* CONTROLS */}
       <div className="controls">
         <input
           placeholder="Search..."
@@ -111,6 +135,7 @@ export default function Board() {
           </div>
         </DragDropContext>
 
+        {/* ACTIVITY PANEL */}
         <div className="activity">
           <h3>Activity</h3>
           {log.map(item => (
@@ -122,6 +147,10 @@ export default function Board() {
   );
 }
 
+/* ========================================================= */
+/* ================= COLUMN COMPONENT ======================= */
+/* ========================================================= */
+
 function Column({ column, tasks, allTasks, setTasks, addLog }) {
   const [form, setForm] = useState({
     title: "",
@@ -131,8 +160,11 @@ function Column({ column, tasks, allTasks, setTasks, addLog }) {
     tags: "",
   });
 
+  /* ================= ADD TASK ================= */
+
   const handleSubmit = e => {
     e.preventDefault();
+
     if (!form.title.trim()) return;
 
     const newTask = {
@@ -157,11 +189,14 @@ function Column({ column, tasks, allTasks, setTasks, addLog }) {
     });
   };
 
+  /* ================= DELETE TASK ================= */
+
   const deleteTask = id => {
     setTasks({
       ...allTasks,
       [column]: allTasks[column].filter(t => t.id !== id),
     });
+
     addLog("Task deleted");
   };
 
@@ -169,6 +204,7 @@ function Column({ column, tasks, allTasks, setTasks, addLog }) {
     <div className="column">
       <h3>{column.toUpperCase()}</h3>
 
+      {/* TASK FORM */}
       <form onSubmit={handleSubmit} className="task-form">
         <input
           placeholder="Title"
@@ -197,6 +233,7 @@ function Column({ column, tasks, allTasks, setTasks, addLog }) {
           <option value="high">High</option>
         </select>
 
+        {/* MOBILE FRIENDLY DATE INPUT */}
         <input
           type="date"
           value={form.due}
@@ -205,9 +242,12 @@ function Column({ column, tasks, allTasks, setTasks, addLog }) {
           }
         />
 
+        
+
         <button type="submit">Add</button>
       </form>
 
+      {/* TASK LIST */}
       <Droppable droppableId={column}>
         {provided => (
           <div
@@ -238,9 +278,12 @@ function Column({ column, tasks, allTasks, setTasks, addLog }) {
                         : "No date"}
                     </small>
 
-                    <small>Tags: {task.tags}</small>
+                    <small>Tags: {task.tags || "None"}</small>
 
-                    <button onClick={() => deleteTask(task.id)}>
+                    <button
+                      type="button"
+                      onClick={() => deleteTask(task.id)}
+                    >
                       Delete
                     </button>
                   </div>
