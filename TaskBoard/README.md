@@ -25,14 +25,13 @@ This project demonstrates clean component architecture, reducer-based state hand
 
 ## 🚀 Live Demo
 
-🔗 https://your-deployment-link.vercel.app
+🔗 https://reactyt-j8qz-git-main-sakshis-projects-37c04365.vercel.app/
 
 ---
 
 ## 📂 Repository
 
-🔗 https://github.com/your-username/task-board
-
+🔗 https://github.com/sakshi-419/reactyt/tree/main/TaskBoard
 ---
 
 ## ✨ Features
