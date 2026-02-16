@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -25,17 +26,48 @@ function Login() {
       <form className="card login-card" onSubmit={handleLogin}>
         <h2>Task Board Login</h2>
 
+        {/* EMAIL */}
         <input
           type="email"
           placeholder="Enter email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => {
+            setEmail(e.target.value);
+            setError("");
+          }}
+          required
         />
 
-        {/* PASSWORD FIELD */}
+        {/* PASSWORD */}
         <div className="password-field">
           <input
             type={showPassword ? "text" : "password"}
             placeholder="Enter password"
             value={password}
-            onChange={(e) => setPassw
+            onChange={(e) => {
+              setPassword(e.target.value);
+              setError("");
+            }}
+            required
+          />
+
+          {/* EYE ICON */}
+          {password && (
+            <span
+              className="toggle-password"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <FaEye /> : <FaEyeSlash />}
+            </span>
+          )}
+        </div>
+
+        <button type="submit">Login</button>
+
+        {error && <p className="error">{error}</p>}
+      </form>
+    </div>
+  );
+}
+
+export default Login;
