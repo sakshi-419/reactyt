@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { TaskContext } from "../context/TaskContext";
 import {
@@ -8,9 +8,10 @@ import {
 } from "@hello-pangea/dnd";
 
 function Board() {
-
   const { tasks, dispatch } = useContext(TaskContext);
   const navigate = useNavigate();
+
+  const userEmail = localStorage.getItem("userEmail");
 
   const [showInput, setShowInput] = useState(false);
   const [taskTitle, setTaskTitle] = useState("");
@@ -22,22 +23,11 @@ function Board() {
   const [priorityFilter, setPriorityFilter] = useState("all");
   const [sortType, setSortType] = useState("default");
 
-  // 🔐 PROTECT ROUTE
-  useEffect(() => {
-    const isAuth =
-      localStorage.getItem("isAuth") ||
-      sessionStorage.getItem("isAuth");
-
-    if (!isAuth) {
-      navigate("/");
-    }
-  }, [navigate]);
-
-  // 🚪 LOGOUT
+  // 🔓 LOGOUT
   const handleLogout = () => {
     localStorage.removeItem("isAuth");
-    sessionStorage.removeItem("isAuth");
-    navigate("/");
+    localStorage.removeItem("userEmail");
+    navigate("/", { replace: true });
   };
 
   // ➕ ADD TASK
@@ -97,6 +87,7 @@ function Board() {
     return data;
   };
 
+  // 🧱 COLUMN RENDER
   const renderColumn = (title, status) => (
     <Droppable droppableId={status}>
       {(provided) => (
@@ -128,7 +119,7 @@ function Board() {
                     {task.priority}
                   </span>
 
-                  {task.dueDate && <small>{task.dueDate}</small>}
+                  {task.dueDate && <small>📅 {task.dueDate}</small>}
 
                   <button
                     className="delete-btn"
@@ -148,10 +139,10 @@ function Board() {
 
           {provided.placeholder}
 
-          {status === "todo" && (
-            showInput ? (
+          {/* ➕ ADD TASK UI */}
+          {status === "todo" &&
+            (showInput ? (
               <div className="task-input-box">
-
                 <input
                   type="text"
                   placeholder="Title"
@@ -183,7 +174,6 @@ function Board() {
                 <button className="btn" onClick={addTask}>
                   Add Task
                 </button>
-
               </div>
             ) : (
               <button
@@ -192,9 +182,7 @@ function Board() {
               >
                 + Add Task
               </button>
-            )
-          )}
-
+            ))}
         </div>
       )}
     </Droppable>
@@ -202,8 +190,7 @@ function Board() {
 
   return (
     <div className="page">
-
-      {/* NAVBAR */}
+      {/* 🔝 NAVBAR */}
       <div className="navbar">
         <h1 className="title">Task Board</h1>
 
@@ -235,14 +222,15 @@ function Board() {
             <option value="dueDate">Due Date</option>
           </select>
 
-          {/* 🚪 LOGOUT */}
+          <span className="user-email">👤 {userEmail}</span>
+
           <button className="btn logout-btn" onClick={handleLogout}>
             Logout
           </button>
-
         </div>
       </div>
 
+      {/* 🧩 BOARD */}
       <DragDropContext onDragEnd={handleDragEnd}>
         <div className="board">
           {renderColumn("Todo", "todo")}
@@ -250,7 +238,6 @@ function Board() {
           {renderColumn("Done", "done")}
         </div>
       </DragDropContext>
-
     </div>
   );
 }

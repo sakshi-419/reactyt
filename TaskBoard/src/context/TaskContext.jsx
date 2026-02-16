@@ -2,72 +2,39 @@ import { createContext, useReducer, useEffect } from "react";
 
 export const TaskContext = createContext();
 
-const initialState = {
-  tasks: JSON.parse(localStorage.getItem("tasks")) || [],
-  logs: JSON.parse(localStorage.getItem("logs")) || [],
-};
-
-function taskReducer(state, action) {
+const reducer = (state, action) => {
   switch (action.type) {
-
     case "ADD_TASK":
-      return {
-        ...state,
-        tasks: [...state.tasks, action.payload],
-      };
-
-    case "DELETE_TASK":
-      return {
-        ...state,
-        tasks: state.tasks.filter(task => task.id !== action.payload),
-      };
+      return [...state, action.payload];
 
     case "MOVE_TASK":
-      return {
-        ...state,
-        tasks: state.tasks.map(task =>
-          task.id === action.payload.id
-            ? { ...task, status: action.payload.status }
-            : task
-        ),
-      };
+      return state.map((task) =>
+        task.id === action.payload.id
+          ? { ...task, status: action.payload.status }
+          : task
+      );
 
-    case "ADD_LOG":
-      return {
-        ...state,
-        logs: [action.payload, ...state.logs],
-      };
-
-    // ♻ RESET BOARD
-    case "RESET_BOARD":
-      return {
-        tasks: [],
-        logs: [],
-      };
+    case "DELETE_TASK":
+      return state.filter((task) => task.id !== action.payload);
 
     default:
       return state;
   }
-}
+};
 
 export const TaskProvider = ({ children }) => {
+  const [tasks, dispatch] = useReducer(
+    reducer,
+    JSON.parse(localStorage.getItem("tasks")) || []
+  );
 
-  const [state, dispatch] = useReducer(taskReducer, initialState);
-
-  // 💾 Sync to localStorage
+  // ✅ SAVE TO LOCALSTORAGE
   useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(state.tasks));
-    localStorage.setItem("logs", JSON.stringify(state.logs));
-  }, [state]);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
 
   return (
-    <TaskContext.Provider
-      value={{
-        tasks: state.tasks,
-        logs: state.logs,
-        dispatch,
-      }}
-    >
+    <TaskContext.Provider value={{ tasks, dispatch }}>
       {children}
     </TaskContext.Provider>
   );

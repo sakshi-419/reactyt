@@ -1,17 +1,25 @@
+// import { Routes, Route } from "react-router-dom";
+// import Login from "./pages/Login";
+// import Board from "./pages/Board";
+// import ProtectedRoute from "./component.jsx/ProtectedRoute";
 
-import { HashRouter, Routes, Route } from "react-router-dom";
-import Login from "./pages/Login";
-import Board from "./pages/Board";
+// function App() {
+//   return (
+//     <Routes>
+//       <Route path="/" element={<Login />} />
 
-function App() {
-  return (
-    <HashRouter>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/board" element={<Board />} />
-      </Routes>
-    </HashRouter>
-  );
-}
+//       <Route
+//         path="/board"
+//         element={
+//           <ProtectedRoute>
+//             <Board />
+//           </ProtectedRoute> 
+//         }
+//       />
+//     </Routes>
+//   );
+// }
 
-export default App;
+// export default App;
+
+<Route path="/board" element={<Board />} />
