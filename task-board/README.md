@@ -1,16 +1,137 @@
-# React + Vite
+📋 Task Board – React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive Kanban-style Task Management App built using React, Vite, and LocalStorage.
+Users can log in, create tasks, manage their progress, and track activity.
 
-Currently, two official plugins are available:
+🔗 Live Demo: https://reactyt-lwwk.vercel.app
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+✨ Features
 
-## React Compiler
+🔐 Login with Remember Me (LocalStorage)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+➕ Add tasks with:
 
-## Expanding the ESLint configuration
+Title
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Description
+
+Priority (Low / Medium / High)
+
+Due date
+
+Tags
+
+🧭 Drag & drop tasks between:
+
+TODO
+
+DOING
+
+DONE
+
+🔍 Search & filter tasks
+
+🗑 Delete tasks
+
+📜 Activity log
+
+🚪 Logout & redirect to login
+
+📱 Fully responsive (mobile friendly)
+
+💾 Data persistence using LocalStorage
+
+🛠️ Tech Stack
+
+⚛️ React
+
+⚡ Vite
+
+🎨 CSS (Glassmorphism UI)
+
+🧠 LocalStorage
+
+🌐 Vercel (Deployment)
+
+🧩 @hello-pangea/dnd (Drag & Drop)
+
+📅 Day.js (Date handling)
+
+🆔 UUID (Unique IDs)
+
+📂 Project Structure
+task-board
+│── public
+│── src
+│   ├── components
+│   │   ├── Login.jsx
+│   │   ├── Board.jsx
+│   │   ├── Column.jsx
+│   │   └── TaskCard.jsx
+│   ├── hooks
+│   │   └── useLocalStorage.js
+│   ├── index.css
+│   ├── App.jsx
+│   └── main.jsx
+│
+├── index.html
+├── package.json
+└── vercel.json
+
+⚙️ Installation & Setup
+1️⃣ Clone the repo
+git clone https://github.com/sakshi-419/reactyt.git
+
+2️⃣ Go into project
+cd task-board
+
+3️⃣ Install dependencies
+npm install
+
+4️⃣ Run locally
+npm run dev
+
+🚀 Build for Production
+npm run build
+
+🌍 Deployment (Vercel)
+
+This project is deployed on Vercel with SPA routing support using:
+
+{
+  "routes": [
+    { "src": "/(.*)", "dest": "/" }
+  ]
+}
+
+📱 Responsive Design
+
+Desktop → 3 column layout + activity panel
+
+Tablet → stacked columns
+
+Mobile → single column flow
+
+🧠 Future Improvements
+
+Backend authentication
+
+User accounts
+
+Cloud database
+
+Dark / Light theme toggle
+
+Task editing
+
+Due date reminders
+
+👩‍💻 Author
+
+Sakshi Choudhary
+
+GitHub: https://github.com/sakshi-419
+
+
+
+

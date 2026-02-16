@@ -248,6 +248,13 @@ body {
   gap: 10px;
 }
 
+.remember-row input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #ff7a18;
+  cursor: pointer;
+}
+
 .login-card button {
   padding: 14px;
   border-radius: 12px;
