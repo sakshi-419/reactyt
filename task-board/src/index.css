@@ -271,3 +271,25 @@ body {
   color: #ffe4e6;
   font-size: 13px;
 }
+
+.password-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-field input {
+  width: 100%;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 15px;
+  cursor: pointer;
+  color: #333;
+  font-size: 18px;
+}
+
+input, select, button {
+  font-size: 16px;   /* stops mobile zoom */
+}
