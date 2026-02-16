@@ -210,4 +210,69 @@ button:hover {
   background: crimson;
 }
 
+/* BOARD LAYOUT */
+.board {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+/* EACH COLUMN */
+.column {
+  flex: 1;
+  min-width: 280px;
+}
+
+/* NAVBAR */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* SEARCH + FILTERS */
+.nav-controls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* 📱 MOBILE VIEW */
+@media (max-width: 768px) {
+
+  .board {
+    flex-direction: column;
+  }
+
+  .column {
+    width: 100%;
+  }
+
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-controls {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .search-input,
+  .filter-select,
+  .btn {
+    width: 100%;
+  }
+}
+.task-input-box input,
+.task-input-box textarea,
+.task-input-box select {
+  width: 100%;
+  margin-bottom: 8px;
+}
+body {
+  overflow-x: hidden;
+}
 
