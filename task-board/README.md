@@ -3,7 +3,7 @@
 A responsive Kanban-style Task Management App built using React, Vite, and LocalStorage.
 Users can log in, create tasks, manage their progress, and track activity.
 
-🔗 Live Demo: https://reactyt-lwwk.vercel.app
+🔗 Live Demo: https://reactyt-lwwk.vercel.app/
 
 ✨ Features
 
